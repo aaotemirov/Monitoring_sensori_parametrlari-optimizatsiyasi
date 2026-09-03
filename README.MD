@@ -1,1007 +1,712 @@
-# Hall Effektli Havo Oraliqli Tok Sensorini Optimallashtirish
+Albatta. Quyidagini to‘g‘ridan-to‘g‘ri README.md fayliga joylashtirishingiz mumkin. Bu variant aynan sizning newmethodoptimizer.py va NewMethodOptimizer.ipynb fayllaringizdagi real hisoblashlarga moslangan.
 
-[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
-[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
-[![License](https://img.shields.io/badge/License-Research-lightgrey.svg)](#litsenziya)
+# Hall Effectli Havo Oralig‘idagi Tok Sensorini Optimallashtirish
 
-## Annotatsiya
+## Loyiha haqida
 
-Ushbu repository Hall effektiga asoslangan havo oraliqli tok sensorining parametrlarini optimallashtirishga bag‘ishlangan.
+Ushbu loyiha **Hall effectli, havo oralig‘iga ega tok sensorining parametrlarini optimallashtirish** uchun ishlab chiqilgan matematik va dasturiy modelni ifodalaydi.
 
-Tadqiqotning asosiy maqsadi o‘lchanayotgan tok qiymatini yuqori aniqlikda aniqlash imkonini beruvchi sensor parametrlarining optimal qiymatlarini topishdan iborat.
+Loyihaning asosiy maqsadi — turli qiymatlardagi birlamchi tok uchun sensorning chiqish kuchlanishini belgilangan qiymatga, ya'ni **5 V** ga moslashtirish hamda buning uchun sensorning asosiy konstruktiv va elektromagnit parametrlarini optimal tanlashdir.
 
-Hall effektli tok sensorlarida o‘lchanayotgan tok magnit maydon hosil qiladi. Ushbu magnit maydon magnit o‘zak orqali yo‘naltirilib, magnit o‘zakdagi havo oralig‘ida joylashgan Hall elementiga ta’sir qiladi. Hall elementi magnit induksiyani elektr signaliga aylantiradi va ushbu signal asosida tok qiymati aniqlanadi.
+Loyihada quyidagi asosiy parametrlar o‘rganiladi:
 
-Shu sababli tokni o‘lchash aniqligi Hall elementining xususiyatlari bilan bir qatorda magnit o‘zak, havo oralig‘i va magnit maydon taqsimotiga ham bog‘liq.
+- birlamchi tok — `I`;
+- o‘ramlar soni — `w`;
+- magnit o‘zakning ko‘ndalang kesim yuzasi — `S`;
+- havo oralig‘i — `c`;
+- magnit o‘tkazuvchanlik — `μ`;
+- magnit o‘zak uzunligi — `l`;
+- chastota — `f`;
+- chiqish kuchlanishi — `U`.
 
-Mazkur loyiha ushbu bog‘liqliklarni matematik va hisoblash usullari orqali tahlil qilish hamda tokni o‘lchash xatosini minimallashtiruvchi optimal parametrlar to‘plamini aniqlashga mo‘ljallangan.
-
----
-
-# 1. Tadqiqot mavzusi
-
-**Hall effektli havo oraliqli tok sensorini optimallashtirish**
-
-Tadqiqotda Hall effektiga asoslangan tok sensorining o‘lchash jarayoni va uning parametrlarini optimal tanlash masalasi ko‘rib chiqiladi.
-
-Asosiy fizik kattalik:
-
-$$
-I_p
-$$
-
-bu yerda $I_p$ — o‘lchanayotgan tok.
-
-Sensorning chiqish signali esa Hall elementida hosil bo‘ladigan kuchlanish orqali ifodalanadi:
-
-$$
-V_H
-$$
-
-bu yerda $V_H$ — Hall kuchlanishi.
-
-Tadqiqotning asosiy vazifasi $I_p$ tokning qiymatini imkon qadar kichik xatolik bilan aniqlashga imkon beruvchi sensor parametrlarini topishdan iborat.
+Optimallashtirish natijasida har bir tok qiymati uchun mos keluvchi **optimal o‘ramlar soni, ko‘ndalang kesim yuzasi va havo oralig‘i** aniqlanadi.
 
 ---
 
-# 2. Tadqiqot obyekti
+# 1. Tadqiqotning maqsadi
 
-Tadqiqot obyekti — **Hall effektiga asoslangan havo oraliqli magnit o‘zakli tok sensori**.
+Loyihaning asosiy maqsadi Hall effectli/havo oralig‘idagi tok sensorining parametrlarini o‘lchanayotgan tokka bog‘liq holda optimallashtirishdan iborat.
 
-Sensorning umumiy funksional tuzilishi:
+Asosiy masala quyidagicha ifodalanadi:
 
-```text
-                  O‘LCHANAYOTGAN TOK
-                         I_p
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │  Tok o'tkazgich │
-                 └────────┬────────┘
-                          │
-                          ▼
-              ┌──────────────────────┐
-              │     MAGNIT O‘ZAK      │
-              │                      │
-              │       ┌──────┐       │
-              │       │ HALL │       │
-              │       │ELEMENT│      │
-              │       └───┬──┘       │
-              │        Havo oralig‘i │
-              └────────────┬─────────┘
-                           │
-                           ▼
-                     Hall kuchlanishi
-                           V_H
-                           │
-                           ▼
-                    Signalni qayta ishlash
-                           │
-                           ▼
-                    Hisoblangan tok
-                           I_meas
+\[
+I \rightarrow \{w,S,c\} \rightarrow U
+\]
 
-# Monitoring Sensor Parametrlari — Optimallashtirish
+ya'ni berilgan tok qiymati uchun:
 
-**Sensor monitoring parametrlarini tahlil qilish va optimallashtirish uchun yangi usulning Python realizatsiyasi**
+- o‘ramlar soni `w`;
+- ko‘ndalang kesim yuzasi `S`;
+- havo oralig‘i `c`
 
-[![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)](https://www.python.org/)
-[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter)](https://jupyter.org/)
-[![GitHub](https://img.shields.io/badge/Repository-GitHub-black?logo=github)](https://github.com/)
-[![Research Software](https://img.shields.io/badge/Research-Software-green)](https://github.com/)
+parametrlari tanlanadi va natijada chiqish kuchlanishi `U` aniqlanadi.
 
----
+Optimallashtirishning asosiy maqsadi:
 
-## Annotatsiya
-
-Ushbu repository sensor monitoring tizimlarida kuzatiladigan parametrlarni matematik modellashtirish, parametrlar fazosini tahlil qilish va optimal yechimni aniqlashga mo‘ljallangan optimallashtirish usulining dasturiy realizatsiyasini o‘z ichiga oladi.
-
-Loyihaning asosiy maqsadi — ko‘p parametrli sensor tizimlarida mavjud parametrlar to‘plamidan foydalanib, belgilangan maqsad funksiyasini optimallashtiruvchi yechimni aniqlashdir.
-
-Repository tarkibida optimallashtirish algoritmining Python realizatsiyasi va tadqiqot jarayonini bosqichma-bosqich takrorlash imkonini beruvchi Jupyter Notebook mavjud.
-
-Ushbu repository ilmiy maqolalar, dissertatsiya ishlari, tajribaviy tadqiqotlar va reproduktiv hisoblashlar uchun dasturiy manba sifatida ishlab chiqilgan.
-
----
-
-# 1. Tadqiqot muammosi
-
-Sensor monitoring tizimlarida bir vaqtning o‘zida bir nechta fizik parametrlar kuzatiladi. Masalan:
-
-* tok;
-* kuchlanish;
-* quvvat;
-* harorat;
-* namlik;
-* bosim;
-* tezlik;
-* radiatsiya;
-* zaryad holati;
-* boshqa tizimga xos parametrlar.
-
-Ushbu parametrlarning qiymatlari vaqt davomida o‘zgaradi va ular o‘zaro bog‘langan bo‘lishi mumkin.
-
-Shuning uchun sensor tizimini matematik jihatdan:
-
-$$
-\mathbf{x}(t)=
-[x_1(t),x_2(t),\ldots,x_n(t)]^T
-$$
-
-parametrlar vektori orqali ifodalash mumkin.
-
-Bu yerda:
-
-* \(x_i(t)\) — \(i\)-parametrning vaqt bo‘yicha qiymati;
-* \(n\) — parametrlar soni;
-* \(t\) — kuzatish vaqti;
-* \(\mathbf{x}(t)\) — tizimning joriy holat vektori.
-
-Ko‘p o‘zgaruvchili optimallashtirish masalalarida yechimni aniqlash uchun maqsad funksiyasi va ruxsat etilgan yechimlar sohasi belgilanadi [1–3].
-
----
-
-# 2. Matematik model
-
-## 2.1. Sensor parametrlar vektori
-
-Diskret vaqt oralig‘ida sensorlardan olingan ma’lumotlar:
-
-$$
-x_i[k]=x_i(t_k)
-$$
-
-ko‘rinishida ifodalanadi.
-
-Barcha parametrlar quyidagi vektor orqali ifodalanadi:
-
-$$
-\mathbf{x}_k=
-\begin{bmatrix}
-x_1[k]\\
-x_2[k]\\
-\vdots\\
-x_n[k]
-\end{bmatrix}
-$$
-
-Kuzatuvlar to‘plami esa:
-
-$$
-X=
-\begin{bmatrix}
-x_1[1] & x_2[1] & \cdots & x_n[1]\\
-x_1[2] & x_2[2] & \cdots & x_n[2]\\
-\vdots & \vdots & \ddots & \vdots\\
-x_1[m] & x_2[m] & \cdots & x_n[m]
-\end{bmatrix}
-$$
-
-matritsasi orqali ifodalanadi.
-
-Bu yerda \(m\) — kuzatuvlar soni.
-
----
-
-# 3. Ma’lumotlarni normallashtirish
-
-Sensorlar turli fizik birliklarda ishlashi sababli parametrlarning qiymat diapazonlari bir-biridan sezilarli darajada farq qilishi mumkin.
-
-Shuning uchun optimallashtirishdan oldin parametrlarni umumiy diapazonga keltirish mumkin.
-
-Min-max normallashtirish:
-
-$$
-x_i^{norm}=
-\frac{x_i-x_i^{min}}
-{x_i^{max}-x_i^{min}}
-$$
-
-orqali amalga oshiriladi.
-
-Natijada:
-
-$$
-0\leq x_i^{norm}\leq1
-$$
-
-sharti hosil bo‘ladi.
-
-Normallashtirish optimallashtirish jarayonida parametrlar masshtabining ta’sirini kamaytirishga yordam beradi [2,3].
-
----
-
-# 4. Optimallashtirish masalasining matematik qo‘yilishi
-
-Umumiy optimallashtirish masalasi:
-
-$$
-\boxed{
-\mathbf{x}^{*}
-=
-\arg\min_{\mathbf{x}\in\Omega}F(\mathbf{x})
-}
-$$
-
-ko‘rinishida ifodalanadi.
-
-Bu yerda:
-
-* \(F(\mathbf{x})\) — maqsad funksiyasi;
-* \(\mathbf{x}\) — optimallashtiriluvchi parametrlar vektori;
-* \(\mathbf{x}^{*}\) — optimal yechim;
-* \(\Omega\) — ruxsat etilgan yechimlar sohasi.
-
-Agar masala maksimumni aniqlashga qaratilgan bo‘lsa:
-
-$$
-\boxed{
-\mathbf{x}^{*}
-=
-\arg\max_{\mathbf{x}\in\Omega}F(\mathbf{x})
-}
-$$
-
-ko‘rinishidan foydalaniladi.
-
----
-
-# 5. Maqsad funksiyasi
-
-Sensor monitoring tizimi uchun maqsad funksiyasi tizimning optimallashtirilishi kerak bo‘lgan mezonini ifodalaydi.
-
-Umumiy holda:
-
-$$
-F(\mathbf{x})=
-F(x_1,x_2,\ldots,x_n)
-$$
-
-deb olinadi.
-
-Bir nechta mezon mavjud bo‘lsa, ko‘p mezonli optimallashtirish modeli:
-
-$$
-\mathbf{F}(\mathbf{x})=
-\left[
-F_1(\mathbf{x}),
-F_2(\mathbf{x}),
-\ldots,
-F_r(\mathbf{x})
-\right]^T
-$$
-
-ko‘rinishida yoziladi.
-
-Ko‘p mezonli masalani yagona maqsad funksiyasiga keltirish uchun vaznli yig‘indi ishlatilishi mumkin:
-
-$$
-F(\mathbf{x})
-=
-\sum_{j=1}^{r}
-w_jF_j(\mathbf{x})
-$$
+\[
+U \rightarrow U_{target}
+\]
 
 bu yerda:
 
-$$
-w_j\geq0,
-\qquad
-\sum_{j=1}^{r}w_j=1.
-$$
-
-Bunday yondashuv ko‘p mezonli optimallashtirish masalalarini yagona skalyar maqsad funksiyasi orqali yechishga imkon beradi [2,3].
+\[
+U_{target}=5V
+\]
 
 ---
 
-# 6. Cheklovlar
+# 2. Sensorning matematik modeli
 
-Sensor parametrlarining fizik chegaralari mavjud bo‘lishi mumkin:
+Loyihada chiqish kuchlanishini hisoblash uchun quyidagi matematik ifodadan foydalaniladi:
 
-$$
-x_i^{min}\leq x_i\leq x_i^{max},
-\qquad i=1,\ldots,n.
-$$
+\[
+U_{E2} =
+\frac{4.44 f I w \mu \mu_0 S}
+{l+\mu c}
+\]
 
-Umumiy cheklovli optimallashtirish masalasi:
+bu yerda:
 
-$$
-\min_{\mathbf{x}}F(\mathbf{x})
-$$
+| Belgilanish | Nomi | Birligi |
+|---|---|---|
+| \(U_{E2}\) | Chiqish kuchlanishi | V |
+| \(f\) | Chastota | Hz |
+| \(I\) | Birlamchi tok | A |
+| \(w\) | O‘ramlar soni | dona |
+| \(\mu\) | Nisbiy magnit o‘tkazuvchanlik | — |
+| \(\mu_0\) | Vakuum magnit o‘tkazuvchanligi | H/m |
+| \(S\) | Magnit o‘zakning ko‘ndalang kesim yuzasi | m² |
+| \(l\) | Magnit o‘zak uzunligi | m |
+| \(c\) | Havo oralig‘i | m |
 
-quyidagi shartlarda:
+Vakuum magnit o‘tkazuvchanligi:
 
-$$
-g_j(\mathbf{x})\leq0,
-\qquad j=1,\ldots,p,
-$$
+\[
+\mu_0=4\pi\times10^{-7}\;H/m
+\]
 
-$$
-h_l(\mathbf{x})=0,
-\qquad l=1,\ldots,q,
-$$
+Dasturda:
 
-$$
-\mathbf{x}^{min}\leq
-\mathbf{x}
-\leq
-\mathbf{x}^{max}.
-$$
+```python
+m_0 = 4 * np.pi * 1e-7
+
+ko‘rinishida berilgan.
+
+3. Dasturdagi boshlang‘ich parametrlar
+
+Asosiy hisoblash modelida quyidagi qiymatlar berilgan:
+
+f = 50.0
+w_kt = 1
+m = 2000
+m_0 = 4 * np.pi * 1e-7
+l = 0.2
+Ue2 = 5.0
+tol = 1e-4
+
+Ularning fizik ma'nosi:
+
+Parametr	Qiymat	Tavsifi
+f	50 Hz	Chastota
+w_kt	1	Birlamchi o‘ramlar soni
+m	2000	Nisbiy magnit o‘tkazuvchanlik
+μ₀	\(4π×10^{-7}\) H/m	Vakuum magnit o‘tkazuvchanligi
+l	0.2 m	Magnit o‘zak uzunligi
+Ue2	5 V	Maqsad chiqish kuchlanishi
+tol	\(10^{-4}\)	Optimallashtirish aniqligi
+4. Optimallashtiriladigan asosiy parametrlar
+
+Loyihaning asosiy optimallashtirish vektori:
+
+$$ \mathbf{x}=[w,S,c] $$
+
+ko‘rinishida beriladi.
 
 Bu yerda:
 
-* \(g_j(\mathbf{x})\) — tengsizlik cheklovlari;
-* \(h_l(\mathbf{x})\) — tenglik cheklovlari;
-* \(\mathbf{x}^{min}\), \(\mathbf{x}^{max}\) — parametrlarning fizik chegaralari.
+4.1. O‘ramlar soni — w
 
-Cheklovlarning mavjudligi optimal yechimning faqat fizik va matematik jihatdan ruxsat etilgan sohada izlanishini ta’minlaydi [1–3].
+O‘ramlar soni sensorning chiqish kuchlanishiga ta'sir qiluvchi asosiy parametrdir.
 
----
+Kodda:
 
-# 7. Yangi optimallashtirish usulining matematik apparati
+$$ 20\leq w\leq500 $$
 
-Taklif etilayotgan usul iteratsion optimallashtirish jarayoni sifatida qaraladi.
+chegaralari berilgan.
 
-Boshlang‘ich yechim:
+Python:
 
-$$
-\mathbf{x}^{(0)}
-$$
+bounds = [
+    (20, 500),
+    ...
+]
+4.2. Ko‘ndalang kesim yuzasi — S
 
-orqali belgilanadi.
+Magnit o‘zakning ko‘ndalang kesim yuzasi sensorning elektromagnit xususiyatlariga va chiqish kuchlanishiga ta'sir qiladi.
 
-Har bir \(t\)-iteratsiyada yangi yechim:
+Optimallashtirish kodida:
 
-$$
-\boxed{
-\mathbf{x}^{(t+1)}
-=
-\mathcal{T}
-\left(
-\mathbf{x}^{(t)},
-F(\mathbf{x}^{(t)}),
-\boldsymbol{\theta}^{(t)}
-\right)
-}
-$$
+$$ 10^{-5}\leq S\leq10^{-3} $$
 
-ko‘rinishida shakllantiriladi.
+oralig‘i berilgan.
 
-Bu yerda:
+Python:
 
-* \(t\) — iteratsiya raqami;
-* \(\mathbf{x}^{(t)}\) — joriy yechim;
-* \(\mathbf{x}^{(t+1)}\) — yangi yechim;
-* \(F(\mathbf{x}^{(t)})\) — joriy maqsad funksiyasi;
-* \(\mathcal{T}\) — optimallashtirishning yangilash operatori;
-* \(\boldsymbol{\theta}^{(t)}\) — algoritm parametrlarining joriy qiymatlari.
+(1e-5, 1e-3)
+4.3. Havo oralig‘i — c
 
-Ushbu operator aynan mazkur repositoryda amalga oshirilgan yangi usulning asosiy matematik qismini tashkil etadi.
+Havo oralig‘i magnit zanjirning muhim konstruktiv parametrlaridan biridir.
 
----
+Kodda:
 
-# 8. Yechimni baholash
+$$ 10^{-4}\leq c\leq2\times10^{-3}\;m $$
 
-Har bir yangi yechim uchun maqsad funksiyasi hisoblanadi:
+chegara qo‘yilgan.
 
-$$
-F_t=F(\mathbf{x}^{(t)}).
-$$
+Python:
 
-Agar minimallashtirish masalasi qaralayotgan bo‘lsa, yangi yechim avvalgi yechimdan yaxshi bo‘lganda:
+(1e-4, 2e-3)
+5. Tok qiymatlari
 
-$$
-F_{t+1}<F_t
-$$
+Dastur sensor parametrlarining turli tok qiymatlariga bog‘liqligini tekshiradi.
 
-sharti bajariladi.
+Asosiy tajriba:
 
-Shuningdek, eng yaxshi topilgan yechim:
+$$ I=[10,20,40,80,100,200,400,800,1600,3200]\;A $$
 
-$$
-F_{best}^{(t)}
-=
-\min_{0\leq k\leq t}
-F(\mathbf{x}^{(k)})
-$$
+ko‘rinishida bajarilgan.
 
-orqali saqlanishi mumkin.
+Notebookning boshqa optimallashtirish tajribasida:
 
-Maksimallashtirish holatida esa:
-
-$$
-F_{best}^{(t)}
-=
-\max_{0\leq k\leq t}
-F(\mathbf{x}^{(k)}).
-$$
+$$ I=[20,100,300,500,1000,2000]\;A $$
 
----
+qiymatlaridan foydalanilgan.
 
-# 9. Konvergentsiya mezoni
+Shunday qilib, loyiha sensor parametrlarini keng tok diapazonida tahlil qilish imkonini beradi.
 
-Algoritmning konvergentsiyasi maqsad funksiyasining ketma-ket qiymatlari o‘zgarishi orqali baholanishi mumkin:
+6. Optimallashtirish usuli
 
-$$
-\Delta F_t
-=
-\left|
-F(\mathbf{x}^{(t+1)})
--
-F(\mathbf{x}^{(t)})
-\right|.
-$$
-
-Agar:
-
-$$
-\Delta F_t<\varepsilon
-$$
-
-bo‘lsa, algoritm yetarli aniqlikka erishgan deb qaralishi mumkin.
-
-Bundan tashqari, parametrlar vektorining o‘zgarishi:
-
-$$
-\Delta x_t
-=
-\left\|
-\mathbf{x}^{(t+1)}
--
-\mathbf{x}^{(t)}
-\right\|
-$$
-
-orqali ham nazorat qilinadi.
-
-To‘xtash sharti:
-
-$$
-\boxed{
-\left\|
-\mathbf{x}^{(t+1)}
--
-\mathbf{x}^{(t)}
-\right\|
-<\varepsilon
-}
-$$
+Optimallashtirish uchun Python SciPy kutubxonasining:
 
-ko‘rinishida berilishi mumkin.
+scipy.optimize.minimize
 
----
+funksiyasidan foydalaniladi.
 
-# 10. Algoritmning umumiy matematik ketma-ketligi
+Optimallashtirish usuli:
 
-Optimallashtirish jarayonini quyidagicha ifodalash mumkin:
+method='SLSQP'
 
-$$
-\boxed{
-\mathbf{x}^{(0)}
-\rightarrow
-F(\mathbf{x}^{(0)})
-\rightarrow
-\mathcal{T}
-\rightarrow
-\mathbf{x}^{(1)}
-\rightarrow
-F(\mathbf{x}^{(1)})
-\rightarrow
-\mathcal{T}
-\rightarrow
-\cdots
-\rightarrow
-\mathbf{x}^{*}
-}
-$$
+ya'ni:
 
-Algoritmning umumiy pseudokodi:
+Sequential Least Squares Programming (SLSQP)
 
-```text
-1. Boshlang‘ich parametrlarni aniqlash
-2. Boshlang‘ich yechim x(0) ni shakllantirish
-3. Maqsad funksiyasini hisoblash
-4. t = 0, 1, ..., T uchun:
-       4.1. Yangi yechimni shakllantirish
-       4.2. Cheklovlarni tekshirish
-       4.3. Maqsad funksiyasini hisoblash
-       4.4. Eng yaxshi yechimni yangilash
-       4.5. Konvergentsiya shartini tekshirish
-5. Optimal yechim x* ni qaytarish
-```
+usulidir.
 
----
+Dasturdagi asosiy chaqiruv:
 
-# 11. Sensor parametrlarini optimallashtirish
+result = optimize.minimize(
+    obj_func,
+    initial_vars,
+    bounds=bounds,
+    constraints=constraints,
+    method='SLSQP',
+    options={'disp': False, 'maxiter': 1000}
+)
+7. Optimallashtirish cheklovi
 
-Sensor tizimida optimallashtiriluvchi parametrlar:
+Loyihada asosiy cheklov chiqish kuchlanishining maqsad qiymatiga teng bo‘lishidir.
 
-$$
-\mathbf{x}
-=
-[x_1,x_2,\ldots,x_n]^T
-$$
+Maqsad:
 
-bo‘lib, har bir parametrning fizik chegarasi mavjud:
+$$ U_{E2}=5V $$
 
-$$
-x_i\in[x_i^{min},x_i^{max}].
-$$
+Shuning uchun cheklov:
 
-Shunday qilib, sensor parametrlarini optimallashtirish masalasi:
+$$ U_{E2}-5=0 $$
 
-$$
-\boxed{
-\min_{\mathbf{x}}
-F(x_1,x_2,\ldots,x_n)
-}
-$$
+ko‘rinishida beriladi.
 
-quyidagi shartlarda:
+Python kodida:
 
-$$
-x_i^{min}\leq x_i\leq x_i^{max}.
-$$
+def constraint_eq(vars):
+    w, S, c = vars
+    U = 4.44 * f * (I_ * w * m * m_0 * S) / (l + m * c)
+    return U - Ue2
 
-Agar sensorlarning o‘zaro bog‘liqligi mavjud bo‘lsa, qo‘shimcha:
+ko‘rinishida amalga oshirilgan.
 
-$$
-g_j(\mathbf{x})\leq0
-$$
+8. Optimallashtirish jarayoni
 
-cheklovlari ham kiritiladi.
+Dasturdagi hisoblash jarayoni quyidagi ketma-ketlikda amalga oshiriladi:
 
-Natijada optimal parametrlar:
+                Birlamchi tok I
+                       │
+                       ▼
+             Sensor parametrlari
+               [w, S, c]
+                       │
+                       ▼
+              Matematik model
+                       │
+                       ▼
+                  U_E2 hisoblash
+                       │
+                       ▼
+                  U_target = 5 V
+                       │
+                       ▼
+              Cheklov tekshiriladi
+                       │
+                       ▼
+                SLSQP algoritmi
+                       │
+                       ▼
+              Parametrlarni yangilash
+                       │
+                       ▼
+              Optimal yechim
+                       │
+                       ▼
+              w_opt, S_opt, c_opt
+9. Boshlang‘ich qiymatlarni tanlash
 
-$$
-\mathbf{x}^{*}
-=
-[x_1^{*},x_2^{*},\ldots,x_n^{*}]^T
-$$
+Optimallashtirishdan oldin boshlang‘ich parametrlar tasodifiy tarzda tanlanadi.
 
-ko‘rinishida aniqlanadi.
+Kodda:
 
----
+w_init = np.random.randint(20, 500)
 
-# 12. Algoritm samaradorligini baholash
+S_init = np.random.uniform(1e-5, 1e-3)
 
-Yangi optimallashtirish usulini mavjud usullar bilan taqqoslash uchun bir nechta mezonlardan foydalanish mumkin.
+c_init = np.random.uniform(1e-4, 2e-3)
 
-## 12.1. Optimal qiymat
+ishlatilgan.
 
-$$
-F^{*}=F(\mathbf{x}^{*})
-$$
+Natijada boshlang‘ich nuqta:
 
-optimal yechim sifatini ifodalaydi.
+$$ \mathbf{x}_0=[w_0,S_0,c_0] $$
 
-## 12.2. Hisoblash vaqti
+ko‘rinishida hosil qilinadi.
 
-$$
-T_{comp}
-=
-t_{end}-t_{start}
-$$
+10. Optimal parametrlarning tokka bog‘liqligi
 
-algoritmning hisoblash tezligini baholaydi.
+Optimallashtirish har bir tok qiymati uchun alohida bajariladi.
 
-## 12.3. Iteratsiyalar soni
+Natijada:
 
-$$
-N_{iter}=T
-$$
+$$ w=w(I) $$ $$ S=S(I) $$ $$ c=c(I) $$
 
-algoritmning optimal yechimga erishish uchun qancha iteratsiya talab qilganini ko‘rsatadi.
+bog‘lanishlari olinadi.
 
-## 12.4. Yaxshilanish koeffitsienti
+Bu bog‘lanishlar sensorning konstruktiv parametrlarini tok qiymatiga moslashtirish imkonini beradi.
 
-Boshlang‘ich va optimal qiymatlar asosida:
+11. Gradientlarni aniqlash
 
-$$
-I=
-\frac{|F_{initial}-F_{best}|}
-{|F_{initial}|}
-\times100\%
-$$
+newmethodoptimizer.py faylida optimal parametrlarning tokka nisbatan o‘zgarish tezligi ham hisoblanadi.
 
-ko‘rsatkichi orqali yaxshilanish darajasini baholash mumkin.
+O‘ramlar soni:
 
-## 12.5. Takroriy tajribalar
+$$ \frac{dw}{dI} $$
 
-Stoxastik yoki boshlang‘ich holatga bog‘liq algoritmlar uchun tajriba \(R\) marta takrorlanib:
+ko‘ndalang kesim yuzasi:
 
-$$
-\bar{F}
-=
-\frac{1}{R}
-\sum_{r=1}^{R}F_r
-$$
+$$ \frac{dS}{dI} $$
 
-o‘rtacha qiymati hisoblanishi mumkin.
+havo oralig‘i:
 
-Standart og‘ish:
+$$ \frac{dc}{dI} $$
 
-$$
-\sigma_F
-=
-\sqrt{
-\frac{1}{R-1}
-\sum_{r=1}^{R}
-(F_r-\bar{F})^2
-}
-$$
+uchun gradientlar aniqlanadi.
 
-algoritmning barqarorligini baholashga yordam beradi.
+Python kodida:
 
----
+dw_dI = np.gradient(w, I)
 
-# 13. Hisoblash murakkabligi
+dS_dI = np.gradient(S, I)
 
-Algoritmning hisoblash murakkabligi parametrlar soni \(n\), iteratsiyalar soni \(T\) va maqsad funksiyasini hisoblash murakkabligiga bog‘liq.
+dc_dI = np.gradient(c, I)
 
-Agar bitta iteratsiyada maqsad funksiyasini hisoblash:
+ishlatiladi.
 
-$$
-O(n)
-$$
+Bu natijalar sensor parametrlarining tok o‘zgarishiga sezgirligini baholash imkonini beradi.
 
-bo‘lsa, umumiy hisoblash murakkabligi taxminan:
+12. Hisoblash natijalari
 
-$$
-O(Tn)
-$$
+Koddagi optimallashtirish tajribalaridan birida quyidagi natijalar olingan:
 
-ko‘rinishida bo‘ladi.
+Tok, A	Optimal w	Optimal S, m²	Optimal c, m	U, V
+20	388.34	0.000857	0.000271	5.0000
+100	497.00	0.000527	0.001360	5.0000
+300	305.00	0.000263	0.001244	4.9968
+500	333.00	0.000183	0.001601	5.0000
+1000	105.00	0.000137	0.000702	5.0000
+2000	62.00	0.000145	0.000905	5.0000
 
-Agar maqsad funksiyasining hisoblash murakkabligi:
+Ushbu natijalardan ko‘rinadiki, tok qiymati o‘zgarganda 5 V chiqish kuchlanishini ta'minlash uchun sensorning optimal parametrlari ham o‘zgaradi.
 
-$$
-C_F(n)
-$$
+Masalan, tok 20 A dan 2000 A gacha oshganda optimal o‘ramlar soni kamayadi:
 
-bo‘lsa, umumiy murakkablik:
+$$ w:388.34\rightarrow62 $$
 
-$$
-O(T\cdot C_F(n))
-$$
+Bu sensor parametrlarining o‘lchanayotgan tok diapazoniga bog‘liq ekanligini ko‘rsatadi.
 
-orqali ifodalanadi.
+13. Grafik tahlil
 
-Aniq murakkablik yangi usulning yangilash operatori va maqsad funksiyasining real implementatsiyasiga bog‘liq.
+NewMethodOptimizer.ipynb faylida optimal parametrlarning tokka bog‘liqligi grafiklar orqali tahlil qilinadi.
 
----
+Asosiy grafiklar:
 
-# 14. Tadqiqotning hisoblash arxitekturasi
+13.1. S(I) va c(I)
 
-Repositorydagi hisoblash jarayoni:
+Magnit o‘zakning ko‘ndalang kesim yuzasi va havo oralig‘ining tokka bog‘liqligi.
 
-```text
-┌─────────────────────────────┐
-│ Sensor monitoring ma'lumotlari│
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Ma'lumotlarni tayyorlash    │
-│ va normallashtirish         │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Matematik optimallashtirish │
-│ modeli                      │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Yangi optimallashtirish     │
-│ usuli                       │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Maqsad funksiyasini         │
-│ baholash                    │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Konvergentsiyani tekshirish │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Optimal yechim              │
-└─────────────────────────────┘
-```
+$$ S=S(I) $$ $$ c=c(I) $$
+13.2. S(I) va w(I)
 
----
+Ko‘ndalang kesim yuzasi va o‘ramlar sonining tokka bog‘liqligi.
 
-# 15. Repository tarkibi
+$$ S=S(I) $$ $$ w=w(I) $$
+13.3. c(I) va w(I)
 
-```text
+Havo oralig‘i va o‘ramlar sonining tokka bog‘liqligi.
+
+$$ c=c(I) $$ $$ w=w(I) $$
+
+Ushbu grafiklar sensor parametrlarining bir-biri bilan qanday bog‘langanligini ko‘rsatadi.
+
+14. Parametrik tadqiqotlar
+
+Notebookda optimallashtirishdan tashqari parametrik tadqiqotlar ham bajarilgan.
+
+Bunda alohida parametrning chiqish kuchlanishiga ta'siri tekshiriladi.
+
+Asosiy tahlil qilinadigan parametrlar:
+
+o‘ramlar soni w;
+ko‘ndalang kesim yuzasi S;
+havo oralig‘i l_H;
+birlamchi tok I.
+
+Bunda:
+
+$$ U=U(I,w) $$ $$ U=U(I,S) $$ $$ U=U(I,l_H) $$
+
+bog‘lanishlari tahlil qilinadi.
+
+15. 5 V chiqish kuchlanishiga mos tok
+
+Notebookda berilgan parametrlar uchun chiqish kuchlanishi 5 V ga teng bo‘ladigan tok qiymatini aniqlashga ham e'tibor berilgan.
+
+Umumiy holda:
+
+$$ U(I,x)=5V $$
+
+tenglamasidan:
+
+$$ I=I_{5V}(x) $$
+
+aniqlanadi.
+
+Bu yerda x:
+
+w;
+S;
+l_H
+
+parametrlaridan biri bo‘lishi mumkin.
+
+Natijada sensorning qaysi parametrlarida ma'lum tok uchun 5 V chiqish hosil bo‘lishini aniqlash mumkin.
+
+16. Adekvatlikni baholash
+
+Notebookda chiqish kuchlanishining 5 V maqsad qiymatiga qanchalik yaqinligi ham baholanadi.
+
+Umumiy xatolik:
+
+$$ E=|U-U_{target}| $$
+
+Nisbiy xatolik:
+
+$$ \delta= \frac{|U-U_{target}|} {U_{target}}\times100\% $$
+
+Maqsad kuchlanish:
+
+$$ U_{target}=5V $$
+
+Masalan, ±0.45 % chegarada:
+
+$$ \Delta U=5\times0.0045=0.0225V $$
+
+Shunda:
+
+$$ 4.9775V\leq U\leq5.0225V $$
+
+oralig‘idagi natijalar maqsad qiymatga mos deb baholanishi mumkin.
+
+17. Loyiha fayllari
+
+Repository quyidagi asosiy fayllardan tashkil topgan:
+
 Monitoring_sensori_parametrlari-optimizatsiyasi/
 │
 ├── NewMethodOptimizer.ipynb
+│
 ├── newmethodoptimizer.py
-├── README.md
-└── .gitignore
-```
+│
+└── README.md
+newmethodoptimizer.py
 
-### `NewMethodOptimizer.ipynb`
+Python dasturining asosiy fayli.
 
-Tadqiqot tajribalarini Jupyter Notebook muhitida bajarish, parametrlarni o‘zgartirish, hisoblash natijalarini kuzatish va algoritm ishini tahlil qilish uchun foydalaniladi.
+U quyidagi vazifalarni bajaradi:
 
-### `newmethodoptimizer.py`
-
-Optimallashtirish usulining Python dasturiy realizatsiyasini o‘z ichiga oladi.
-
-### `README.md`
-
-Loyihaning ilmiy, matematik va dasturiy tavsifini beradi.
-
----
-
-# 16. O‘rnatish
-
-Repositoryni klonlash:
-
-```bash
-git clone https://github.com/aaotemirov/Monitoring_sensori_parametrlari-optimizatsiyasi.git
-```
-
-Loyiha katalogiga o‘tish:
-
-```bash
-cd Monitoring_sensori_parametrlari-optimizatsiyasi
-```
-
-Virtual muhit yaratish:
-
-```bash
-python -m venv venv
-```
-
-Virtual muhitni faollashtirish:
-
-### Windows
-
-```powershell
-venv\Scripts\activate
-```
-
-### Linux/macOS
-
-```bash
-source venv/bin/activate
-```
-
-Zarur kutubxonalarni o‘rnatish:
-
-```bash
-pip install numpy matplotlib jupyter
-```
-
----
-
-# 17. Ishga tushirish
-
-Jupyter Notebook:
-
-```bash
-jupyter notebook
-```
-
-So‘ng:
-
-```text
+tok qiymatlarini qabul qilish;
+sensor modelini hisoblash;
+optimallashtirish;
+optimal w, S, c qiymatlarini aniqlash;
+gradientlarni hisoblash;
+natijalarni konsolga chiqarish.
 NewMethodOptimizer.ipynb
-```
 
-fayli ochiladi.
+Jupyter Notebook.
 
-Python realizatsiyasini ishga tushirish:
+Unda:
 
-```bash
+matematik hisoblashlar;
+optimallashtirish;
+parametrik tadqiqotlar;
+grafiklar;
+natijalarni taqqoslash;
+adekvatlik tahlili
+
+bajariladi.
+
+18. Foydalanilgan Python kutubxonalari
+
+Loyihada quyidagi asosiy kutubxonalardan foydalaniladi:
+
+NumPy
+SciPy
+Matplotlib
+Pandas
+Jupyter Notebook
+
+O‘rnatish:
+
+pip install numpy scipy matplotlib pandas jupyter
+19. Dasturni ishga tushirish
+
+Repositoryni yuklab olish:
+
+git clone https://github.com/aaotemirov/Monitoring_sensori_parametrlari-optimizatsiyasi.git
+
+Repository katalogiga kirish:
+
+cd Monitoring_sensori_parametrlari-optimizatsiyasi
+
+Python dasturini ishga tushirish:
+
 python newmethodoptimizer.py
-```
 
----
+Notebookni ishga tushirish:
 
-# 18. Reproduktiv tadqiqot
+jupyter notebook
 
-Ilmiy natijalarni takrorlash uchun:
+Keyin:
 
-1. Repositoryning kerakli versiyasi olinadi.
-2. Python virtual muhiti yaratiladi.
-3. Zarur kutubxonalar o‘rnatiladi.
-4. `NewMethodOptimizer.ipynb` ishga tushiriladi.
-5. Algoritm parametrlari belgilanadi.
-6. Optimallashtirish jarayoni bajariladi.
-7. Optimal yechim olinadi.
-8. Natijalar boshqa usullar bilan taqqoslanadi.
+NewMethodOptimizer.ipynb
 
-Tadqiqotning muayyan natijalarini maqolada ko‘rsatishda foydalanilgan repository versiyasi yoki Git tagini qayd etish tavsiya etiladi.
+faylini ochish mumkin.
 
----
+20. Tadqiqotni qayta ishlab chiqarish
 
-# 19. Ilmiy maqolalarda foydalanish
+Hisoblash natijalarini qayta olish uchun:
 
-Ushbu repository ilmiy maqolalarda quyidagi maqsadlarda dasturiy manba sifatida ko‘rsatilishi mumkin:
+Repository yuklab olinadi.
+Python muhiti yaratiladi.
+Kerakli kutubxonalar o‘rnatiladi.
+NewMethodOptimizer.ipynb ochiladi.
+Boshlang‘ich parametrlar tekshiriladi.
+Tok diapazoni belgilanadi.
+Optimallashtirish algoritmi ishga tushiriladi.
+Optimal w, S, c qiymatlari olinadi.
+Chiqish kuchlanishi tekshiriladi.
+Grafiklar hosil qilinadi.
+Natijalar jadval ko‘rinishida tahlil qilinadi.
+21. Tadqiqotning asosiy natijasi
 
-* sensor parametrlarini optimallashtirish;
-* optimallashtirish algoritmlarini tajribaviy taqqoslash;
-* yangi algoritmning dasturiy realizatsiyasini ko‘rsatish;
-* hisoblash tajribalarini reproduksiya qilish;
-* dissertatsiya tadqiqotining dasturiy komponentini hujjatlashtirish.
+Loyihaning asosiy natijasi — berilgan birlamchi tok uchun 5 V chiqish kuchlanishini ta'minlaydigan optimal sensor parametrlarini aniqlash.
 
-Maqolada repositoryga quyidagicha murojaat qilish mumkin:
+Asosiy bog‘lanish:
 
-> The implementation of the proposed sensor-parameter optimization approach is publicly available in the GitHub repository [4].
+$$ I\rightarrow(w,S,c)\rightarrow U_{E2} $$
 
-yoki:
+ko‘rinishida.
 
-> The source code and computational experiments used in this study are available in the accompanying research software repository [4].
+Optimallashtirish natijasida:
 
----
+$$ (w,S,c)_{opt} $$
 
-# 20. Citation
+topiladi.
 
-Agar ushbu repositorydagi kod, algoritm realizatsiyasi yoki hisoblash tajribalari ilmiy maqola, konferensiya materiali yoki dissertatsiyada ishlatilsa, repositoryga citation berish tavsiya etiladi.
+Shu orqali:
 
-### APA
+$$ U_{E2}\approx5V $$
 
-Temirov, A. (2026). *Monitoring Sensor Parametrlari — Optimallashtirish* [Computer software]. GitHub.
+sharti ta'minlanadi.
 
-### BibTeX
+22. Ilmiy ahamiyati
 
-```bibtex
-@software{temirov2026sensor_optimization,
-  author       = {Temirov, Azizbek},
-  title        = {Monitoring Sensor Parametrlari -- Optimallashtirish},
-  year         = {2026},
-  publisher    = {GitHub},
-  url          = {https://github.com/aaotemirov/Monitoring_sensori_parametrlari-optimizatsiyasi},
-  version      = {1.0.0}
-}
-```
+Ushbu dasturiy model Hall effectli/havo oralig‘idagi tok sensorlarini loyihalash va optimallashtirish bo‘yicha hisoblash tadqiqotlarida foydalanilishi mumkin.
 
----
+Model yordamida:
 
-# 21. Ilmiy adabiyotlar
+tok diapazoniga mos sensor parametrlarini aniqlash;
+o‘ramlar sonini optimallashtirish;
+magnit o‘zakning ko‘ndalang kesim yuzasini tanlash;
+havo oralig‘ini optimallashtirish;
+chiqish kuchlanishini maqsad qiymatga moslashtirish;
+parametrlarning tokka bog‘liqligini aniqlash;
+optimal parametrlarning gradientlarini hisoblash
 
-Optimallashtirishning matematik asoslari va algoritmik yondashuvlarini yorituvchi asosiy manbalar:
+mumkin.
 
-**[1]** Nocedal, J., & Wright, S. J. (2006). *Numerical Optimization* (2nd ed.). Springer.
+23. Metodik izoh
 
-**[2]** Boyd, S., & Vandenberghe, L. (2004). *Convex Optimization*. Cambridge University Press.
+Mazkur repositorydagi matematik modelda optimallashtirishning asosiy maqsadi bevosita I_meas - I_true xatoligini minimallashtirish emas.
 
-**[3]** Bertsekas, D. P. (1999). *Nonlinear Programming* (2nd ed.). Athena Scientific.
+Ushbu versiyada asosiy optimallashtirish masalasi:
 
-**[4]** Temirov, A. (2026). *Monitoring Sensor Parametrlari — Optimallashtirish*. GitHub repository.
+$$ U_{E2}=5V $$
 
----
+shartini qanoatlantiruvchi:
 
-# 22. BibTeX — asosiy adabiyotlar
+$$ w,\;S,\;c $$
 
-```bibtex
-@book{nocedal2006numerical,
-  title     = {Numerical Optimization},
-  author    = {Nocedal, Jorge and Wright, Stephen J.},
-  edition   = {2},
-  year      = {2006},
-  publisher = {Springer}
-}
+parametrlarni aniqlashga qaratilgan.
 
-@book{boyd2004convex,
-  title     = {Convex Optimization},
-  author    = {Boyd, Stephen and Vandenberghe, Lieven},
-  year      = {2004},
-  publisher = {Cambridge University Press}
-}
+Shuning uchun loyiha ikki asosiy qismga ajratiladi:
 
-@book{bertsekas1999nonlinear,
-  title     = {Nonlinear Programming},
-  author    = {Bertsekas, Dimitri P.},
-  edition   = {2},
-  year      = {1999},
-  publisher = {Athena Scientific}
-}
+1. Matematik model
+$$ U_{E2} = \frac{4.44 f I w \mu \mu_0 S} {l+\mu c} $$
+2. Optimallashtirish
+$$ \mathbf{x}=[w,S,c] $$
 
-@software{temirov2026sensor_optimization,
-  author    = {Temirov, Azizbek},
-  title     = {Monitoring Sensor Parametrlari -- Optimallashtirish},
+uchun:
+
+$$ U_{E2}(\mathbf{x})=5V $$
+
+shartini qanoatlantiruvchi optimal yechimni aniqlash.
+
+Bu yondashuv keyinchalik real eksperimental tok va sensor chiqish signallari bilan birlashtirilib, o‘lchash xatoligini alohida optimallashtirish uchun kengaytirilishi mumkin.
+
+24. Citation
+
+Ushbu repository ilmiy maqola, dissertatsiya, konferensiya maqolasi yoki texnik hisobotda dasturiy tadqiqot manbasi sifatida ko‘rsatilishi mumkin.
+
+APA
+
+Temirov, A. (2026). Hall Effectli Havo Oralig‘idagi Tok Sensorini Optimallashtirish. GitHub.
+
+BibTeX
+@software{temirov2026hall,
+  author    = {Azizbek Temirov},
+  title     = {Hall Effectli Havo Oralig‘idagi Tok Sensorini Optimallashtirish},
   year      = {2026},
   publisher = {GitHub},
-  url       = {https://github.com/aaotemirov/Monitoring_sensori_parametrlari-optimizatsiyasi},
-  version   = {1.0.0}
+  url       = {https://github.com/aaotemirov/Monitoring_sensori_parametrlari-optimizatsiyasi}
 }
-```
+25. DOI va Zenodo
 
----
+Loyihaning ilmiy maqola yoki dissertatsiyada doimiy manba sifatida foydalanilishi uchun GitHub repositoryga DOI biriktirish tavsiya etiladi.
 
-# 23. DOI va ilmiy identifikatsiya
+Tavsiya etiladigan jarayon:
 
-Repositoryning ilmiy maqolalarda uzoq muddatli va barqaror citation qilinishini ta’minlash uchun GitHub repositoryning relizlarini DOI bilan arxivlash tavsiya etiladi.
+GitHub Repository
+        ↓
+Git Tag / Release
+        ↓
+Zenodo
+        ↓
+DOI
+        ↓
+Ilmiy maqola / Dissertatsiya
 
-Tavsiya etiladigan versiyalash:
+DOI olingandan so‘ng README faylining Citation qismiga DOI qo‘shiladi.
 
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
+26. Versiyalash
 
-Keyingi muhim versiyalar:
-
-```text
-v1.1.0
-v1.2.0
-v2.0.0
-```
-
-ko‘rinishida belgilanadi.
-
-DOI mavjud bo‘lgandan keyin BibTeX yozuvi DOI bilan yangilanadi:
-
-```bibtex
-@software{temirov2026sensor_optimization,
-  author    = {Temirov, Azizbek},
-  title     = {Monitoring Sensor Parametrlari -- Optimallashtirish},
-  year      = {2026},
-  version   = {1.0.0},
-  publisher = {Zenodo},
-  doi       = {DOI}
-}
-```
-
-**Eslatma:** DOI haqiqatan yaratilmaguncha README yoki maqolaga soxta DOI kiritilmasligi kerak.
-
----
-
-# 24. Versiyalash va ilmiy reproduktivlik
-
-Har bir ilmiy tajriba uchun ishlatilgan algoritm versiyasini qayd qilish tavsiya etiladi.
+Tadqiqotning turli bosqichlarini saqlash uchun Git taglardan foydalanish mumkin.
 
 Masalan:
 
-```text
-Algorithm version: v1.0.0
-Repository: Monitoring_sensori_parametrlari-optimizatsiyasi
-Year: 2026
-```
+git tag v1.0.0
+git push origin v1.0.0
 
-Bu yondashuv maqolada keltirilgan natijalarni keyinchalik aynan qaysi dasturiy versiya yordamida olinganini aniqlash imkonini beradi.
+Versiyalar:
 
----
+v1.0.0 — dastlabki optimallashtirish modeli
+v1.1.0 — parametrik tadqiqotlar
+v1.2.0 — grafik va adekvatlik tahlili
+v2.0.0 — kengaytirilgan sensor modeli
+27. Muallif
 
-# 25. Muallif
+Azizbek Temirov
 
-**Azizbek Temirov**
+Tadqiqot yo‘nalishi:
 
-Research / Dissertation Project
-
-GitHub:
-
-https://github.com/aaotemirov
-
----
-
-# 26. Litsenziya
-
-Ushbu repository ilmiy-tadqiqot va ta’lim maqsadlarida foydalanish uchun taqdim etilgan.
-
-Koddan ilmiy ishda foydalanilganda repository va tegishli ilmiy manbalarga citation berish tavsiya etiladi.
-
----
-
-# 27. Repository
+Hall effectli tok sensorlari;
+havo oralig‘idagi magnit tizimlar;
+kontaktsiz tok o‘lchash;
+sensor parametrlarini optimallashtirish;
+elektromagnit modellashtirish;
+matematik optimallashtirish;
+tok diapazoniga mos sensor parametrlarini aniqlash.
+28. Repository
 
 GitHub:
 
 https://github.com/aaotemirov/Monitoring_sensori_parametrlari-optimizatsiyasi
 
-**Project:** Monitoring Sensor Parametrlari — Optimallashtirish
+29. Xulosa
 
-**Author:** Azizbek Temirov
+Ushbu loyiha Hall effectli/havo oralig‘idagi tok sensorining parametrlarini matematik modellashtirish va optimallashtirish uchun ishlab chiqilgan.
 
-**Year:** 2026
+Asosiy optimallashtirish parametrlari:
+
+$$ \boxed{w,\;S,\;c} $$
+
+bo‘lib, ular:
+
+o‘ramlar soni;
+magnit o‘zakning ko‘ndalang kesim yuzasi;
+havo oralig‘i
+
+ni ifodalaydi.
+
+Kirish parametri:
+
+$$ \boxed{I} $$
+
+ya'ni birlamchi tok.
+
+Asosiy chiqish:
+
+$$ \boxed{U_{E2}} $$
+
+va optimallashtirish maqsadi:
+
+$$ \boxed{U_{E2}=5V} $$
+
+shartini ta'minlashdan iborat.
+
+Shunday qilib, loyiha:
+
+$$ \boxed{ I\rightarrow (w,S,c)_{opt} \rightarrow U_{E2}\approx5V } $$
+
+bog‘lanishi orqali tok sensorining optimal parametrlarini aniqlash imkonini beradi.
+
+
+Bu variant **sizning faylingizdagi haqiqiy `w`, `S`, `c`, `I`, `Ue2`, `SLSQP`, 5 V va tok diapazonlariga moslangan**; masalan, kodingizda `w`, `S`, `c` aynan optimallashtirish o‘zgaruvchilari sifatida berilgan. :contentReference[oaicite:0]{index=0}
+
+Yana muhim jihati: README'da **Hall sensoriga aloqasi bo‘lmagan umumiy parametrlarni qo‘shmadim**. Asosiy urg‘u tok, tokka bog‘liq sensor parametrlari, havo oralig‘i, o‘ramlar soni, kesim yuzi va 5 V chiqishga qaratilgan.
