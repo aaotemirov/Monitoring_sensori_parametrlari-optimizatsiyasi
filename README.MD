@@ -1,3 +1,86 @@
+# Hall Effektli Havo Oraliqli Tok Sensorini Optimallashtirish
+
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
+[![License](https://img.shields.io/badge/License-Research-lightgrey.svg)](#litsenziya)
+
+## Annotatsiya
+
+Ushbu repository Hall effektiga asoslangan havo oraliqli tok sensorining parametrlarini optimallashtirishga bag‘ishlangan.
+
+Tadqiqotning asosiy maqsadi o‘lchanayotgan tok qiymatini yuqori aniqlikda aniqlash imkonini beruvchi sensor parametrlarining optimal qiymatlarini topishdan iborat.
+
+Hall effektli tok sensorlarida o‘lchanayotgan tok magnit maydon hosil qiladi. Ushbu magnit maydon magnit o‘zak orqali yo‘naltirilib, magnit o‘zakdagi havo oralig‘ida joylashgan Hall elementiga ta’sir qiladi. Hall elementi magnit induksiyani elektr signaliga aylantiradi va ushbu signal asosida tok qiymati aniqlanadi.
+
+Shu sababli tokni o‘lchash aniqligi Hall elementining xususiyatlari bilan bir qatorda magnit o‘zak, havo oralig‘i va magnit maydon taqsimotiga ham bog‘liq.
+
+Mazkur loyiha ushbu bog‘liqliklarni matematik va hisoblash usullari orqali tahlil qilish hamda tokni o‘lchash xatosini minimallashtiruvchi optimal parametrlar to‘plamini aniqlashga mo‘ljallangan.
+
+---
+
+# 1. Tadqiqot mavzusi
+
+**Hall effektli havo oraliqli tok sensorini optimallashtirish**
+
+Tadqiqotda Hall effektiga asoslangan tok sensorining o‘lchash jarayoni va uning parametrlarini optimal tanlash masalasi ko‘rib chiqiladi.
+
+Asosiy fizik kattalik:
+
+$$
+I_p
+$$
+
+bu yerda $I_p$ — o‘lchanayotgan tok.
+
+Sensorning chiqish signali esa Hall elementida hosil bo‘ladigan kuchlanish orqali ifodalanadi:
+
+$$
+V_H
+$$
+
+bu yerda $V_H$ — Hall kuchlanishi.
+
+Tadqiqotning asosiy vazifasi $I_p$ tokning qiymatini imkon qadar kichik xatolik bilan aniqlashga imkon beruvchi sensor parametrlarini topishdan iborat.
+
+---
+
+# 2. Tadqiqot obyekti
+
+Tadqiqot obyekti — **Hall effektiga asoslangan havo oraliqli magnit o‘zakli tok sensori**.
+
+Sensorning umumiy funksional tuzilishi:
+
+```text
+                  O‘LCHANAYOTGAN TOK
+                         I_p
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │  Tok o'tkazgich │
+                 └────────┬────────┘
+                          │
+                          ▼
+              ┌──────────────────────┐
+              │     MAGNIT O‘ZAK      │
+              │                      │
+              │       ┌──────┐       │
+              │       │ HALL │       │
+              │       │ELEMENT│      │
+              │       └───┬──┘       │
+              │        Havo oralig‘i │
+              └────────────┬─────────┘
+                           │
+                           ▼
+                     Hall kuchlanishi
+                           V_H
+                           │
+                           ▼
+                    Signalni qayta ishlash
+                           │
+                           ▼
+                    Hisoblangan tok
+                           I_meas
+
 # Monitoring Sensor Parametrlari — Optimallashtirish
 
 **Sensor monitoring parametrlarini tahlil qilish va optimallashtirish uchun yangi usulning Python realizatsiyasi**
