@@ -1,9 +1,5 @@
-Albatta. Quyidagini to‘g‘ridan-to‘g‘ri README.md fayliga joylashtirishingiz mumkin. Bu variant aynan sizning newmethodoptimizer.py va NewMethodOptimizer.ipynb fayllaringizdagi real hisoblashlarga moslangan.
-
 # Hall Effectli Havo Oralig‘idagi Tok Sensorini Optimallashtirish
-
 ## Loyiha haqida
-
 Ushbu loyiha **Hall effectli, havo oralig‘iga ega tok sensorining parametrlarini optimallashtirish** uchun ishlab chiqilgan matematik va dasturiy modelni ifodalaydi.
 
 Loyihaning asosiy maqsadi — turli qiymatlardagi birlamchi tok uchun sensorning chiqish kuchlanishini belgilangan qiymatga, ya'ni **5 V** ga moslashtirish hamda buning uchun sensorning asosiy konstruktiv va elektromagnit parametrlarini optimal tanlashdir.
