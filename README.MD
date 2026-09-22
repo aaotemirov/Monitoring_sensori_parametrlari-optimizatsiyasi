@@ -6,14 +6,14 @@ Loyihaning asosiy maqsadi — turli qiymatlardagi birlamchi tok uchun sensorning
 
 Loyihada quyidagi asosiy parametrlar o‘rganiladi:
 
-- birlamchi tok — `I`;
-- o‘ramlar soni — `w`;
-- magnit o‘zakning ko‘ndalang kesim yuzasi — `S`;
-- havo oralig‘i — `c`;
-- magnit o‘tkazuvchanlik — `μ`;
-- magnit o‘zak uzunligi — `l`;
-- chastota — `f`;
-- chiqish kuchlanishi — `U`.
+- birlamchi tok - `I`;
+- o‘ramlar soni - `w`;
+- magnit o‘zakning ko‘ndalang kesim yuzasi - `S`;
+- havo oralig‘i - `c`;
+- magnit o‘tkazuvchanlik - `μ`;
+- magnit o‘zak uzunligi - `l`;
+- chastota - `f`;
+- chiqish kuchlanishi - `U`.
 
 Optimallashtirish natijasida har bir tok qiymati uchun mos keluvchi **optimal o‘ramlar soni, ko‘ndalang kesim yuzasi va havo oralig‘i** aniqlanadi.
 
