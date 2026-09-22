@@ -87,7 +87,7 @@ Vakuum magnit o‘tkazuvchanligi:
 
 Dasturda:
 
-```python
+python
 m_0 = 4 * np.pi * 1e-7
 
 ko‘rinishida berilgan.
